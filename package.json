@@ -10,7 +10,9 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.9"
+    "@types/node": "^25.0.9",
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.5"
   },
   "dependencies": {
     "@faker-js/faker": "^10.2.0"
