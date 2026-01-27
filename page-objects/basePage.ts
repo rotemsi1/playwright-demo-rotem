@@ -1,4 +1,5 @@
-import { Page, TestInfo, test } from "@playwright/test"
+import { Page, TestInfo } from "@playwright/test"
+import { test } from "allure-playwright"
 
 export abstract class BasePage {
 
