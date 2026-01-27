@@ -1,4 +1,4 @@
-import { Page, TestInfo } from "@playwright/test"
+import { Page, TestInfo, test } from "@playwright/test"
 
 export abstract class BasePage {
 
@@ -19,8 +19,10 @@ export abstract class BasePage {
 
     protected async attachScreenshot(name = "Screenshot") {
         if (!BasePage.testInfo) return
-        const buffer = await this.page.screenshot()
-        await BasePage.testInfo.attach(name, {body: buffer, contentType: "image/png"})
+        await test.step(name, async () => {
+            const buffer = await this.page.screenshot()
+            await BasePage.testInfo!.attach(name, {body: buffer, contentType: "image/png"})
+        })
     }
 
 }
