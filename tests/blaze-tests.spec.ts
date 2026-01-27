@@ -1,7 +1,7 @@
-import { test } from '@playwright/test'
-import { HomePage, Route } from '../page-objects/homePage'
-import { FlightParameter, FlightsPage } from '../page-objects/flightsPage'
-import { PurchasePage } from '../page-objects/purchasePage'
+import { test } from "../test-options"
+import { HomePage, Route } from "../page-objects/homePage"
+import { FlightParameter, FlightsPage } from "../page-objects/flightsPage"
+import { PurchasePage } from "../page-objects/purchasePage"
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/")
