@@ -19,7 +19,8 @@ export abstract class BasePage {
 
     protected async attachScreenshot(name: string = "") {
         if (!BasePage.testInfo) return
-        await BasePage.testInfo.attach(name, {body: await this.page.screenshot(), contentType: "image/png"})
+        const buffer = await this.page.screenshot()
+        await BasePage.testInfo.attach(name, {body: buffer, contentType: "image/png"})
     }
 
 }
