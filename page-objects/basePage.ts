@@ -17,9 +17,9 @@ export abstract class BasePage {
         BasePage.testInfo = undefined
     }
 
-    protected async attachScreenshot(name: string = "screenshot", fullPage = false) {
+    protected async attachScreenshot(name = "Screenshot") {
         if (!BasePage.testInfo) return
-        const buffer = await this.page.screenshot({fullPage})
+        const buffer = await this.page.screenshot()
         await BasePage.testInfo.attach(name, {body: buffer, contentType: "image/png"})
     }
 
