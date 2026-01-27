@@ -25,14 +25,14 @@ export class HomePage extends BasePage {
     }
 
     async selectRandomCity(route: Route) {
-        await this.attachScreenshot()
+        await this.attachScreenshot("Before selecting a random city")
         const cityDropdown = route === Route.Departure ? this.departureCityDropdown : this.destinationCityDropdown
         const cityOptions = cityDropdown.getByRole("option")
         const cityOptionsCount = await cityOptions.count()
         const randomIndex = Math.floor(Math.random() * cityOptionsCount)
         const selectedCityValue = await cityOptions.nth(randomIndex).getAttribute("value")
         await cityDropdown.selectOption(selectedCityValue!)
-        await this.attachScreenshot()
+        await this.attachScreenshot("After selecting a city")
         return selectedCityValue
     }
 

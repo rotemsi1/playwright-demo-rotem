@@ -28,7 +28,7 @@ export class FlightsPage extends BasePage {
     }
 
     async selectFlightByParameter(parameter: FlightParameter) {
-        await this.attachScreenshot()
+        await this.attachScreenshot("Before selecting a flight")
         const rows = this.table.locator('tbody tr')
         if (parameter === FlightParameter.Cheapest) {
             // Find the index of the row which contains the cheapest flight
@@ -74,7 +74,7 @@ export class FlightsPage extends BasePage {
             // Click on the "Choose this flight" button in the that row
             await rows.nth(earliestFlightIndex).getByRole("button", { name: "Choose This Flight" }).click()
         }
-        await this.attachScreenshot("Selected flight")
+        await this.attachScreenshot("Aftet selecting a flight")
     }
 
 }

@@ -1,4 +1,4 @@
-name: Playwright Tests with Allure Report
+name: Playwright tests with Allure Report
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Install Playwright Browsers
+    - name: Install Playwright browsers
       run: npx playwright install chromium webkit --with-deps
 
     - name: Clean Allure folders

@@ -34,7 +34,7 @@ export class PurchasePage extends BasePage {
     }
 
     async fillDetails() {
-        await this.attachScreenshot()
+        await this.attachScreenshot("Before filling the details")
         const fullName = `${faker.person.firstName()} ${faker.person.lastName()}`
         await this.name.fill(fullName)
         await this.address.fill(faker.location.streetAddress({useFullAddress: true}))
@@ -45,7 +45,7 @@ export class PurchasePage extends BasePage {
         await this.month.fill(faker.date.month({abbreviated: true}))
         await this.year.fill(faker.date.past({years: 100}).getFullYear().toString())
         await this.nameOnCard.fill(fullName)
-        await this.attachScreenshot()
+        await this.attachScreenshot("After filling the details")
     }
 
     async checkRememberMe() {
