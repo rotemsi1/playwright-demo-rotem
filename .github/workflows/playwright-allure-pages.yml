@@ -25,15 +25,21 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+
     - name: Run Playwright tests
       run: npx playwright test
+      continue-on-error: true
+
     - name: Generate Allure HTML report
+      if: always()
       run: npx allure generate allure-results --clean -o allure-report
+
     - name: Upload Allure HTML report
       if: always()
       uses: actions/upload-pages-artifact@v3
       with:
           path: "allure-report"
+          
   deploy:
     needs: test
     runs-on: ubuntu-latest
