@@ -15,7 +15,9 @@ const flightPreferences = [
 for (const flightPreference of flightPreferences) {
   test(flightPreference.testName, async ({ page }) => {
 
+    // HOME PAGE
     const homePage = new HomePage(page)
+    await homePage.verifyTitle("BlazeDemo")
     // Select a random departure city
     const departureCity = await homePage.selectRandomCity(Route.Departure)
     // Select a random destination city
@@ -23,10 +25,12 @@ for (const flightPreference of flightPreferences) {
     // Click on the "Find Flights" button
     await homePage.findFlightsButton.click()
 
+    // FLIGHTS PAGE
     const flightsPage = new FlightsPage(page)
     await flightsPage.assertDepartureAndDestinationCities(departureCity!, destinationCity!)
     await flightsPage.selectFlightByParameter(flightPreference.param)
 
+    // PURCHASE PAGE
     const purchasePage = new PurchasePage(page)
     await purchasePage.fillDetails()
     await purchasePage.checkRememberMe()

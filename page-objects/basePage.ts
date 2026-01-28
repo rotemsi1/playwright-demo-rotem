@@ -1,4 +1,4 @@
-import { Page, TestInfo } from "@playwright/test"
+import { expect, Page, TestInfo } from "@playwright/test"
 import { test } from "allure-playwright"
 
 export abstract class BasePage {
@@ -8,6 +8,10 @@ export abstract class BasePage {
 
     constructor(page: Page) {
         this.page = page
+    }
+
+    async verifyTitle(expectedTitle: string) {
+        expect(await this.page.title()).toEqual(expectedTitle)
     }
 
     static setTestInfo(testInfo: TestInfo) {
