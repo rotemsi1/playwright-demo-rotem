@@ -4,6 +4,7 @@ import { FlightParameter, FlightsPage } from "../page-objects/flightsPage"
 import { PurchasePage } from "../page-objects/purchasePage"
 
 test.beforeEach(async ({ page }) => {
+  await page.context().clearCookies()
   await page.goto("/")
 })
 
