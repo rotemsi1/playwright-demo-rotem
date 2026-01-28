@@ -14,13 +14,15 @@ export class FlightsPage extends BasePage {
 
     constructor(page: Page) {
         super(page)
-        this.title = this.page.getByRole("heading")
+        this.title = this.page.getByRole("heading").filter({ hasText: 'Flights from' })
         this.departsTableHead = this.page.getByRole("columnheader").filter({ hasText: "Departs:" })
         this.arrivesTableHead = this.page.getByRole("columnheader").filter({ hasText: "Arrives:" })
         this.table = this.page.getByRole("table")
     }
 
     async assertDepartureAndDestinationCities(departureCity: string, destinationCity: string) {
+        await expect(this.title).toBeVisible()
+        await expect(this.title).toHaveCount(1)
         await expect(this.title).toContainText(departureCity)
         await expect(this.title).toContainText(destinationCity)
         await expect(this.departsTableHead).toContainText(departureCity)
