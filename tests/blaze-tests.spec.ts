@@ -13,6 +13,7 @@ const flightPreferences = [
   { testName: "Select cheapest flight", param: FlightParameter.Cheapest }
 ]
 
+// Data-driven tests, according to the flightPreferences enum
 for (const flightPreference of flightPreferences) {
   test(flightPreference.testName, async ({ page }) => {
 
@@ -37,4 +38,5 @@ for (const flightPreference of flightPreferences) {
     await purchasePage.checkRememberMe()
     await purchasePage.clickPurchaseFlight()
   })
+  
 }
