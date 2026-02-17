@@ -20,6 +20,11 @@ export class FlightsPage extends BasePage {
         this.table = this.page.getByRole("table")
     }
 
+    /**
+     * This method will assert that the departure and destination cities appear in the page title
+     * @param departureCity 
+     * @param destinationCity 
+     */
     async assertDepartureAndDestinationCities(departureCity: string, destinationCity: string) {
         await expect(this.title).toBeVisible()
         await expect(this.title).toHaveCount(1)
