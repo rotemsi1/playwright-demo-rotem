@@ -23,14 +23,14 @@ The project follows a Page Object Model (POM) structure for automating the Blaze
 | ~~**Critical**~~ ✅ | ~~`playwright.config.ts`~~ | ~~33~~ | ~~`baseURL` contains a hash/text-anchor, making it invalid for navigation~~ — **Fixed** |
 | ~~**Critical**~~ ✅ | ~~`page-objects/purchasePage.ts`~~ | ~~46~~ | ~~`faker.date.past()` generates a past year for card expiration — should be `faker.date.future()`~~ — **Fixed** |
 | ~~**High**~~ ✅ | ~~`page-objects/flightsPage.ts`~~ | ~~72~~ | ~~Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes~~ — **Fixed** |
-| **High** | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution |
-| **Medium** | `tests/blaze-tests.spec.ts` | 17–42 | Using a `for` loop to generate tests instead of `test.describe.each()` — may not report correctly in Playwright |
+| **High** ⏭️ | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution — **Skipped for now** |
 | **Medium** | `page-objects/homePage.ts` | 32 | `Math.random()` can select index 0 (a disabled/placeholder option) |
 | **Medium** | `page-objects/flightsPage.ts` | 84 | Typo in screenshot name: `"Aftet selecting a flight"` → `"After selecting a flight"` |
 | **Medium** | `test-options.ts` | 5 | `setTestInfo: void` is an incorrect type — it should be `() => void` or a proper function signature |
 | **Low** | `page-objects/purchasePage.ts` | 12 | `cardType` locator is defined but never used — dead code |
 | **Low** | `page-objects/flightsPage.ts` | 69 | Magic number `1440` should be extracted into a named constant: `const MINUTES_PER_DAY = 1440` |
 | **Low** | `page-objects/flightsPage.ts` | 69 | Grammatical error in comment: `"There 1440 minutes"` → `"There are 1440 minutes"` |
+| **Low** | `tests/blaze-tests.spec.ts` | 17–42 | Using a `for` loop instead of `test.describe.each()` — works correctly, style preference only |
 
 ---
 
@@ -107,13 +107,7 @@ expect: { timeout: 5_000 },
 
 ### `tests/blaze-tests.spec.ts`
 
-- **`for` loop instead of `test.describe.each()`** (lines 17–42): Generating tests with a `for` loop is a common pattern but Playwright's native parameterisation is cleaner and integrates better with reporters:
-  ```ts
-  for (const { testName, param } of flightPreferences) {
-    test(testName, async ({ page }) => { ... });
-  }
-  ```
-  The above is actually fine in Playwright — the key issue is that the test name should be descriptive enough. If you want table-driven tests, `test.each` is the idiomatic choice.
+- **`for` loop instead of `test.describe.each()`** (lines 17–42): The `for` loop works correctly in Playwright — tests are registered synchronously at module load time. This is purely a style preference; `test.each` is the more idiomatic Playwright approach but offers no functional advantage here.
 - **No assertion on purchase success** (end of test): The test clicks "Purchase Flight" and stops. There is no verification that the booking was completed. Assert on the confirmation page title or success message.
 - **Clear only cookies, not all storage** (lines 6–9): Add `localStorage` and `sessionStorage` clearing to ensure a fully clean state:
   ```ts
@@ -165,7 +159,7 @@ Using `faker` for test data is good for variety, but it makes failures hard to r
 
 ### Short Term
 1. Fix the `Math.random()` range in `homePage.ts` to exclude index 0.
-2. Remove static `testInfo` from `BasePage`; pass it via constructor or method argument.
+2. ~~Remove static `testInfo` from `BasePage`; pass it via constructor or method argument.~~ ⏭️ Skipped for now
 3. Remove the allure import from `basePage.ts`.
 4. Replace positional `querySelectorAll("td")[3]` in `flightsPage.ts` with a named selector.
 5. Fix the `setTestInfo: void` type in `test-options.ts`.
