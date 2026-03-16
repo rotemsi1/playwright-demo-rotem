@@ -30,7 +30,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: 'https://blazedemo.com/index.php#:~:text=Welcome%20to%20the%20Simple%20Travel,Agency',
+    baseURL: 'https://blazedemo.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
