@@ -43,7 +43,7 @@ export class PurchasePage extends BasePage {
         await this.zipCode.fill(faker.location.zipCode())
         await this.creditCardNumber.fill(faker.finance.creditCardNumber())
         await this.month.fill(faker.date.month({abbreviated: true}))
-        await this.year.fill(faker.date.past({years: 100}).getFullYear().toString())
+        await this.year.fill(faker.date.future({years: 10}).getFullYear().toString())
         await this.nameOnCard.fill(fullName)
         await this.attachScreenshot("After filling the details")
     }

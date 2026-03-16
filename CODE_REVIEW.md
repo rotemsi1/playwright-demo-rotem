@@ -20,8 +20,8 @@ The project follows a Page Object Model (POM) structure for automating the Blaze
 
 | Severity | File | Line | Issue |
 |----------|------|------|-------|
-| **Critical** | `playwright.config.ts` | 33 | `baseURL` contains a hash/text-anchor, making it invalid for navigation |
-| **Critical** | `page-objects/purchasePage.ts` | 46 | `faker.date.past()` generates a past year for card expiration — should be `faker.date.future()` |
+| ~~**Critical**~~ ✅ | ~~`playwright.config.ts`~~ | ~~33~~ | ~~`baseURL` contains a hash/text-anchor, making it invalid for navigation~~ — **Fixed** |
+| ~~**Critical**~~ ✅ | ~~`page-objects/purchasePage.ts`~~ | ~~46~~ | ~~`faker.date.past()` generates a past year for card expiration — should be `faker.date.future()`~~ — **Fixed** |
 | **High** | `page-objects/flightsPage.ts` | 72 | Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes |
 | **High** | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution |
 | **Medium** | `tests/blaze-tests.spec.ts` | 17–42 | Using a `for` loop to generate tests instead of `test.describe.each()` — may not report correctly in Playwright |
@@ -159,8 +159,8 @@ Using `faker` for test data is good for variety, but it makes failures hard to r
 ## Priority Action Items
 
 ### Immediate — Fix Before Next Run
-1. Fix `baseURL` in `playwright.config.ts` — remove the hash/anchor.
-2. Fix `faker.date.past()` → `faker.date.future()` in `purchasePage.ts`.
+1. ~~Fix `baseURL` in `playwright.config.ts` — remove the hash/anchor.~~ ✅
+2. ~~Fix `faker.date.past()` → `faker.date.future()` in `purchasePage.ts`.~~ ✅
 3. Add an assertion on the purchase confirmation page at the end of each test.
 
 ### Short Term
