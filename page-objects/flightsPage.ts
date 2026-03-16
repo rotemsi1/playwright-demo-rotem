@@ -66,10 +66,15 @@ export class FlightsPage extends BasePage {
                     return hours * 60 + minutes
                 }
 
-                let minTime = 1440 // There 1440 minutes in a day
+                let minTime = 1440 // There are 1440 minutes in a day
                 let minIndex = -1
+
+                // Resolve the "Departs:" column index dynamically from the header row, to avoid relying on a hardcoded position
+                const headerCells = Array.from(document.querySelectorAll("th"))
+                const departsColumnIndex = headerCells.findIndex(th => th.textContent?.trim().startsWith("Departs:"))
+
                 tableRows.forEach((tableRow, i) => {
-                    const departureTime = tableRow.querySelectorAll("td")[3].textContent
+                    const departureTime = tableRow.querySelectorAll("td")[departsColumnIndex].textContent
                     const departureTimeInMinutes = convertToMinutes(departureTime)
                     if (departureTimeInMinutes < minTime) {
                         minTime = departureTimeInMinutes

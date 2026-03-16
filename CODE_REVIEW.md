@@ -22,7 +22,7 @@ The project follows a Page Object Model (POM) structure for automating the Blaze
 |----------|------|------|-------|
 | ~~**Critical**~~ ✅ | ~~`playwright.config.ts`~~ | ~~33~~ | ~~`baseURL` contains a hash/text-anchor, making it invalid for navigation~~ — **Fixed** |
 | ~~**Critical**~~ ✅ | ~~`page-objects/purchasePage.ts`~~ | ~~46~~ | ~~`faker.date.past()` generates a past year for card expiration — should be `faker.date.future()`~~ — **Fixed** |
-| **High** | `page-objects/flightsPage.ts` | 72 | Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes |
+| ~~**High**~~ ✅ | ~~`page-objects/flightsPage.ts`~~ | ~~72~~ | ~~Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes~~ — **Fixed** |
 | **High** | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution |
 | **Medium** | `tests/blaze-tests.spec.ts` | 17–42 | Using a `for` loop to generate tests instead of `test.describe.each()` — may not report correctly in Playwright |
 | **Medium** | `page-objects/homePage.ts` | 32 | `Math.random()` can select index 0 (a disabled/placeholder option) |
