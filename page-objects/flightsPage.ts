@@ -71,7 +71,7 @@ export class FlightsPage extends BasePage {
 
                 // Resolve the "Departs:" column index dynamically from the header row, to avoid relying on a hardcoded position
                 const headerCells = Array.from(document.querySelectorAll("th"))
-                const departsColumnIndex = headerCells.findIndex(th => th.textContent?.trim().startsWith("Departs:"))
+                const departsColumnIndex = headerCells.findIndex(th => th.textContent.startsWith("Departs:"))
 
                 tableRows.forEach((tableRow, i) => {
                     const departureTime = tableRow.querySelectorAll("td")[departsColumnIndex].textContent
