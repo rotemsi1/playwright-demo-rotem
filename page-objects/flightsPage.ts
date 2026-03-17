@@ -86,7 +86,7 @@ export class FlightsPage extends BasePage {
             // Click on the "Choose this flight" button in the that row
             await rows.nth(earliestFlightIndex).getByRole("button", { name: "Choose This Flight" }).click()
         }
-        await this.attachScreenshot("Aftet selecting a flight")
+        await this.attachScreenshot("After selecting a flight")
     }
 
 }

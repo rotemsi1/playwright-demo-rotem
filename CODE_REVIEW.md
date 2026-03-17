@@ -24,8 +24,6 @@ The project follows a Page Object Model (POM) structure for automating the Blaze
 | ~~**Critical**~~ ✅ | ~~`page-objects/purchasePage.ts`~~ | ~~46~~ | ~~`faker.date.past()` generates a past year for card expiration — should be `faker.date.future()`~~ — **Fixed** |
 | ~~**High**~~ ✅ | ~~`page-objects/flightsPage.ts`~~ | ~~72~~ | ~~Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes~~ — **Fixed** |
 | **High** ⏭️ | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution — **Skipped for now** |
-| **Medium** | `page-objects/homePage.ts` | 32 | `Math.random()` can select index 0 (a disabled/placeholder option) |
-| **Medium** | `page-objects/flightsPage.ts` | 84 | Typo in screenshot name: `"Aftet selecting a flight"` → `"After selecting a flight"` |
 | **Medium** | `test-options.ts` | 5 | `setTestInfo: void` is an incorrect type — it should be `() => void` or a proper function signature |
 | **Low** | `page-objects/purchasePage.ts` | 12 | `cardType` locator is defined but never used — dead code |
 | **Low** | `page-objects/flightsPage.ts` | 69 | Magic number `1440` should be extracted into a named constant: `const MINUTES_PER_DAY = 1440` |
@@ -79,7 +77,6 @@ expect: { timeout: 5_000 },
   ```ts
   enum Route { DEPARTURE = "departure", DESTINATION = "destination" }
   ```
-- **Random selection can pick a placeholder** (line 32): `Math.floor(Math.random() * cityOptionsCount)` can return `0`, which is often a disabled `<option>` like `"Select a city"`. Use `Math.floor(Math.random() * (cityOptionsCount - 1)) + 1` to skip index 0.
 - **Non-deterministic tests are hard to debug**: Random city selection means a failure might not be reproducible. Consider a data-driven approach with predefined city pairs, or at minimum log which cities were selected in each step.
 - **No validation after selection**: After calling `selectOption`, assert that the dropdown value matches the expected selection.
 
@@ -92,7 +89,6 @@ expect: { timeout: 5_000 },
 - **Magic number** (line 69): Extract `1440` into `const MINUTES_PER_DAY = 1440`.
 - **No handling for empty flight list**: If the site returns no flights for the selected route, `evaluateAll` will return an empty array and the test will silently do nothing. Add an assertion that at least one flight is available.
 - **Business logic in the page object**: The flight-ranking algorithm (finding cheapest/earliest) is business logic. Consider extracting it to a utility function (`utils/flightUtils.ts`) and keeping the page object focused on interactions.
-- **Typo** (line 84): `"Aftet selecting a flight"` → `"After selecting a flight"`.
 
 ---
 
@@ -158,14 +154,12 @@ Using `faker` for test data is good for variety, but it makes failures hard to r
 3. Add an assertion on the purchase confirmation page at the end of each test.
 
 ### Short Term
-1. Fix the `Math.random()` range in `homePage.ts` to exclude index 0.
 2. ~~Remove static `testInfo` from `BasePage`; pass it via constructor or method argument.~~ ⏭️ Skipped for now
 3. Remove the allure import from `basePage.ts`.
 4. Replace positional `querySelectorAll("td")[3]` in `flightsPage.ts` with a named selector.
 5. Fix the `setTestInfo: void` type in `test-options.ts`.
 6. Add `screenshot: 'only-on-failure'` to `playwright.config.ts`.
 7. Add npm scripts to `package.json`.
-8. Fix the typo `"Aftet"` → `"After"` in `flightsPage.ts`.
 
 ### Medium Term
 1. Extract the flight-ranking algorithm from `flightsPage.ts` into a utility function.
