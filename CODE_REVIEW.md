@@ -24,7 +24,7 @@ The project follows a Page Object Model (POM) structure for automating the Blaze
 | ~~**Critical**~~ ✅ | ~~`page-objects/purchasePage.ts`~~ | ~~46~~ | ~~`faker.date.past()` generates a past year for card expiration — should be `faker.date.future()`~~ — **Fixed** |
 | ~~**High**~~ ✅ | ~~`page-objects/flightsPage.ts`~~ | ~~72~~ | ~~Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes~~ — **Fixed** |
 | **High** ⏭️ | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution — **Skipped for now** |
-| **Medium** | `test-options.ts` | 5 | `setTestInfo: void` is an incorrect type — it should be `() => void` or a proper function signature |
+| ~~**Medium**~~ ✅ | ~~`test-options.ts`~~ | ~~5~~ | ~~`setTestInfo: void` is an incorrect type — it should be `() => void` or a proper function signature~~ — **Fixed** |
 | **Low** | `page-objects/purchasePage.ts` | 12 | `cardType` locator is defined but never used — dead code |
 | **Low** | `page-objects/flightsPage.ts` | 69 | Magic number `1440` should be extracted into a named constant: `const MINUTES_PER_DAY = 1440` |
 | **Low** | `page-objects/flightsPage.ts` | 69 | Grammatical error in comment: `"There 1440 minutes"` → `"There are 1440 minutes"` |
@@ -157,7 +157,7 @@ Using `faker` for test data is good for variety, but it makes failures hard to r
 2. ~~Remove static `testInfo` from `BasePage`; pass it via constructor or method argument.~~ ⏭️ Skipped for now
 3. Remove the allure import from `basePage.ts`.
 4. Replace positional `querySelectorAll("td")[3]` in `flightsPage.ts` with a named selector.
-5. Fix the `setTestInfo: void` type in `test-options.ts`.
+5. ~~Fix the `setTestInfo: void` type in `test-options.ts`.~~ ✅
 6. Add `screenshot: 'only-on-failure'` to `playwright.config.ts`.
 7. Add npm scripts to `package.json`.
 
