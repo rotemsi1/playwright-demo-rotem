@@ -25,8 +25,8 @@ The project follows a Page Object Model (POM) structure for automating the Blaze
 | ~~**High**~~ ✅ | ~~`page-objects/flightsPage.ts`~~ | ~~72~~ | ~~Positional selector `querySelectorAll("td")[3]` is fragile and will break if the table structure changes~~ — **Fixed** |
 | **High** ⏭️ | `page-objects/basePage.ts` | 7, 17–23 | Static `testInfo` storage causes test isolation issues in parallel execution — **Skipped for now** |
 | ~~**Medium**~~ ✅ | ~~`test-options.ts`~~ | ~~5~~ | ~~`setTestInfo: void` is an incorrect type — it should be `() => void` or a proper function signature~~ — **Fixed** |
-| **Low** | `page-objects/purchasePage.ts` | 12 | `cardType` locator is defined but never used — dead code |
-| **Low** | `page-objects/flightsPage.ts` | 69 | Magic number `1440` should be extracted into a named constant: `const MINUTES_PER_DAY = 1440` |
+| ~~**Low**~~ ✅ | ~~`page-objects/purchasePage.ts`~~ | ~~12~~ | ~~`cardType` locator is defined but never used — dead code~~ — **Fixed** |
+| ~~**Low**~~ ✅ | ~~`page-objects/flightsPage.ts`~~ | ~~69~~ | ~~Magic number `1440` should be extracted into a named constant: `const MINUTES_PER_DAY = 1440`~~ — **Fixed** |
 | **Low** | `page-objects/flightsPage.ts` | 69 | Grammatical error in comment: `"There 1440 minutes"` → `"There are 1440 minutes"` |
 | **Low** | `tests/blaze-tests.spec.ts` | 17–42 | Using a `for` loop instead of `test.describe.each()` — works correctly, style preference only |
 
@@ -86,7 +86,7 @@ expect: { timeout: 5_000 },
 
 - **Positional selector** (line 72): `querySelectorAll("td")[3]` depends on the column order in the table. If the site changes its table layout, this silently reads the wrong column. Use a named selector or add `data-testid` attributes to the application.
 - **Time parsing** (lines 63–67): `time.split(" ")[0].split(":")[0]` assumes a specific format (`HH:MM AM/PM`). Extract this into a named utility function with a format check, so failures produce a clear error instead of `NaN`.
-- **Magic number** (line 69): Extract `1440` into `const MINUTES_PER_DAY = 1440`.
+- ~~**Magic number** (line 69): Extract `1440` into `const MINUTES_PER_DAY = 1440`.~~ ✅ **Fixed**
 - **No handling for empty flight list**: If the site returns no flights for the selected route, `evaluateAll` will return an empty array and the test will silently do nothing. Add an assertion that at least one flight is available.
 - **Business logic in the page object**: The flight-ranking algorithm (finding cheapest/earliest) is business logic. Consider extracting it to a utility function (`utils/flightUtils.ts`) and keeping the page object focused on interactions.
 
@@ -95,7 +95,7 @@ expect: { timeout: 5_000 },
 ### `page-objects/purchasePage.ts`
 
 - **`faker.date.past()` for card expiry year** (line 46): This generates a year in the past, making the credit card data invalid. Use `faker.date.future()` to generate a future expiry year.
-- **`cardType` locator is unused** (line 12): Remove or implement it.
+- ~~**`cardType` locator is unused** (line 12): Remove or implement it.~~ ✅ **Fixed** — removed dead code.
 - **No assertions after `fillDetails()`**: Verify that the form was filled correctly before clicking purchase. A simple check that the first name field is not empty is better than nothing.
 - **No error handling**: If `fill()` fails on one field, the test error will not indicate which field caused the problem. Consider wrapping in a try-catch with a descriptive message, or rely on step annotations.
 

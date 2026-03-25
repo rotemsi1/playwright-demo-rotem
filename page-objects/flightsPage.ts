@@ -1,6 +1,8 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { BasePage } from "./basePage";
 
+const MINUTES_PER_DAY = 1440
+
 export enum FlightParameter {
     Cheapest, Earliest
 }
@@ -66,7 +68,7 @@ export class FlightsPage extends BasePage {
                     return hours * 60 + minutes
                 }
 
-                let minTime = 1440 // There are 1440 minutes in a day
+                let minTime = MINUTES_PER_DAY
                 let minIndex = -1
 
                 // Resolve the "Departs:" column index dynamically from the header row, to avoid relying on a hardcoded position
