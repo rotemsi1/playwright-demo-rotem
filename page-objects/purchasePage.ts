@@ -9,7 +9,6 @@ export class PurchasePage extends BasePage {
     readonly city: Locator
     readonly state: Locator
     readonly zipCode: Locator
-    readonly cardType: Locator
     readonly creditCardNumber: Locator
     readonly month: Locator
     readonly year: Locator
@@ -24,7 +23,6 @@ export class PurchasePage extends BasePage {
         this.city = this.page.locator("#city")
         this.state = this.page.locator("#state")
         this.zipCode = this.page.locator("#zipCode")
-        this.cardType = this.page.locator("#cardType")
         this.creditCardNumber = this.page.locator("#creditCardNumber")
         this.month = this.page.locator("#creditCardMonth")
         this.year = this.page.locator("#creditCardYear")
